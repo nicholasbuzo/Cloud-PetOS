@@ -136,6 +136,7 @@ az vm run-command invoke \
     	docker-ce \
         docker-ce-cli \
         docker-buildx-plugin
+  mkdir -p /opt/petos
 
 	echo ''
 	echo 'Instalação concluída com sucesso!'
@@ -147,15 +148,15 @@ az vm run-command invoke \
 # =========================================================
 echo ""	
 echo "══════════════════════════════════════════"
-echo "		Infraestrutura provisionada!"
+echo "      Infraestrutura provisionada!        "
 echo "══════════════════════════════════════════"
 echo ""
-echo "  Resource Group : $RESOURCE_GROUP"
-echo "  VM             : $VM_NAME"
-echo "  IP Público     : $VM_IP"
-echo "  SO             : Ubuntu 22.04 LTS"
-echo "  Tamanho        : $VM_SIZE"
-echo "  Portas abertas : 22 | 80 | 8080"
+echo "Resource Group : $RESOURCE_GROUP"
+echo "VM             : $VM_NAME"
+echo "IP Público     : $VM_IP"
+echo "SO             : Ubuntu 22.04 LTS"
+echo "Tamanho        : $VM_SIZE"
+echo "Portas abertas : 22 | 80 | 8080"
 
 echo ""
 echo "Conecte usando:"
@@ -169,4 +170,30 @@ echo "docker compose version"
 echo ""
 echo "Tudo pronto para subir os containers."
 echo "Seguir com a clonagem do projeto:"
+echo "cd /opt/petos"
 echo "git clone https://github.com/nicholasbuzo/Cloud-PetOS.git"
+
+echo ""
+echo "Subir container em background:"
+echo "docker compose up -d --build"
+
+echo ""
+echo "Verificar status:"
+echo "docker compose ps"
+echo "docker compose logs -f"
+
+echo ""
+echo "Testar externamente (do seu computador):"
+echo "curl http://$VM_IP:8080/actuator/health"
+echo "curl http://$VM_IP:8080/pets"
+
+echo ""
+echo "H2 Console:"
+echo "http://$VM_IP:8080/h2-console"
+echo "JDBC URL: jdbc:h2:file:/app/data/petosdb"
+echo "Usuário : sa  |  Senha: (vazio)"
+
+echo ""
+echo "Swagger UI:"
+echo "http://$VM_IP:8080/swagger-ui.html"
+echo ""
