@@ -1,3 +1,4 @@
+/*
 -- ==================== PETS ====================
 INSERT INTO pets (name, species, breed, birth_date, weight, tutor_name, tutor_phone, active)
 VALUES ('Thor', 'DOG', 'Golden Retriever', '2020-03-15', 28.5, 'Carlos Oliveira', '(11) 99999-1111', true);
@@ -55,4 +56,4 @@ VALUES (2, 'VACCINE_DUE', 'Vacina Quádrupla Felina da pet Luna vence em 15/07/2
 
 INSERT INTO alerts (pet_id, type, message, due_date, sent, created_at)
 VALUES (3, 'HEALTH_CHECK', 'Bob está há mais de 6 meses sem visita ao veterinário.', '2025-05-05', false, CURRENT_TIMESTAMP);
-
+*/
