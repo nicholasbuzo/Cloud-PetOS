@@ -9,15 +9,12 @@ FROM maven:3.9-eclipse-temurin-17-alpine
 LABEL maintainer="rm561082@fiap.com.br"
 LABEL description="PetOS - API de Saúde Animal - Java 17 + Spring Boot 3 + H2"
 
-# Instala curl para o health check
-RUN apk add --no-cache curl
-
 # Cria usuário sem privilégios (UID 1001)
 RUN addgroup -S petos && adduser -S petos -G petos -u 1001
 
 WORKDIR /app
 
-# Copia pom.xml primeiro (cache de dependências)
+# Copia pom.xml primeiro (dependências)
 COPY pom.xml ./
 RUN mvn dependency:go-offline -q
 

@@ -1,8 +1,6 @@
 #!/bin/bash
 # ══════════════════════════════════════════════════════════════
-# PetOS — Demo CRUD completo para o vídeo
-# Cobre as 4 entidades do projeto: Pet, Vaccine, Routine, Alert
-# Rotas conforme repositório: github.com/gugomesx10/PetOS-Java
+# PetOS — Demo CRUD completa
 #
 # USO: ./demo-crud.sh <IP_DA_VM>
 # Ex : ./demo-crud.sh 20.123.45.67
