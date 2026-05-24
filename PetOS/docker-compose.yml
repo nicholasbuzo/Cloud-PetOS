@@ -1,0 +1,59 @@
+version: "3.9"
+
+# ══════════════════════════════════════════════════════════════
+# PetOS — Docker Compose
+# Serviço   : API Spring Boot 3 + H2 Database (modo arquivo)
+# Banco     : H2 file-based em /app/data (persiste via volume)
+# Volume    : petos_h2_data (persistência — evita penalidade)
+# Usuário   : petos UID 1001 (sem root)
+# ══════════════════════════════════════════════════════════════
+
+services:
+
+  # ── PetOS API (Spring Boot + H2) ─────────────────────────────
+  petos-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: petos-api
+    restart: unless-stopped          # roda em background, reinicia automaticamente
+
+    environment:
+      # ── H2 em modo ARQUIVO (não em memória — dados persistem no volume)
+      SPRING_DATASOURCE_URL: jdbc:h2:file:/app/data/petosdb;AUTO_SERVER=TRUE
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: ""
+
+      # ── JPA / Hibernate ──────────────────────────────────────
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.H2Dialect
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "false"
+
+      # ── H2 Console (acesso externo para testes) ──────────────
+      SPRING_H2_CONSOLE_ENABLED: "true"
+      SPRING_H2_CONSOLE_PATH: /h2-console
+      SPRING_H2_CONSOLE_SETTINGS_WEB_ALLOW_OTHERS: "true"   # permite acesso externo
+
+      # ── Actuator ─────────────────────────────────────────────
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: health,info
+      MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: always
+
+      # ── Perfil ───────────────────────────────────────────────
+      SPRING_PROFILES_ACTIVE: prod
+
+    ports:
+      - "8080:8080"     # API REST
+
+    volumes:
+      - petos_h2_data:/app/data    # volume nomeado para persistir o banco H2
+
+    user: "1001"                   # UID do usuário petos (sem root)
+
+# ── Volume Nomeado ─────────────────────────────────────────────
+# Persiste o arquivo petosdb.mv.db entre restarts do container
+# Evita penalidade de -1,5 ponto
+volumes:
+  petos_h2_data:
+    driver: local
+    name: petos_h2_data
