@@ -280,7 +280,14 @@ O script `azure-setup.sh` executa em sequência:
 
 ---
 
-## 9. Equipe
+## 9. Demonstração por vídeo
+Vídeo com demonstração por voz do funcionamento do projeto
+
+[![Demonstração explicada](https://img.youtube.com/vi/XhzemOZKGtc/0.jpg)](https://youtu.be/XhzemOZKGtc)
+
+---
+
+## 10. Equipe
 
 | Nome | RM |
 |------|----|
